@@ -12,7 +12,7 @@ Follow these steps to install the package:
 ### Documentation
 
 This code was developed for a final project in Industrial Engineering. For more __detailed information__ on the class and basic ideas on the Finite Element Method, please refer to the bachelor's thesis: 
-[FEM3D_simplicialGMSH.pdf](https://github.com/aleduques/FEM3D_GMSH/blob/main/TFG_ALEJANDRO_DUQUE_SALAZAR.pdf)
+[FEM3D_simplicialGMSH.pdf](https://github.com/aleduques/FEM3D_GMSH/blob/main/TFG_FEM_SimplicialElements_GMSH.pdf)
 
 
 ### Current Folders:
