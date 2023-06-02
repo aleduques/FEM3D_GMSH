@@ -12,3 +12,14 @@ Vectorized Matlab/Octave package for solving three dimensional Finite element pr
 
 This code was done for a final project in Industrial engineering. For more information check out 
 [FEM3D_simplicialGMSH.pdf](https://github.com/aleduques/FEM3D_GMSH/blob/main/TFG_ALEJANDRO_DUQUE_SALAZAR.pdf)
+
+
+### Current Folders:
+Currently we have the folder @FEM3Dclass containing the class. The functions currently available are:
+- BasisNj: Lagrange Basis in the tetrahedral reference element and their partial derivatives. Lagrange basis in the triangular element.
+- evalFEM3DUh: Compute Finite Element Solution at non-nodal points
+- femAdvectionMatrix, femMassMatrix, femRobin, femSourceTerm, femStiffnessMatrix, femStressMatrix: Assembly system of equations.
+- quadRule2D and quadRule3D: Quadrature formulas for the tetrahedral and triangular reference element with nodes given in barycentric coordinates
+
+- local3DMatrices and localRobinMass: Exact local matrices.
+
