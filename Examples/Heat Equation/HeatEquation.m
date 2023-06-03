@@ -1,8 +1,20 @@
-% T = FEM3Dclass('CylinderFins.msh');
-T = FEM3Dclass('CylinderNoFins.msh');
+%%% If plots are not showing in octave:
+% graphics_toolkit ("gnuplot")
+
+% Make sure Heat Equation is the current folder.
+p = pwd ;
+cd ..
+cd ..
+% Add class folder to path
+addpath(pwd)
+% Return to Heat Equation Folder
+cd(p)
+%%
+T = FEM3Dclass('cylinderFins.msh');
+% T = FEM3Dclass('cylinderNoFins.msh');
 %% Properties
 
-% density 
+% density
 rho = 7200;
 % Thermal Conductivity
 k = 52;
@@ -44,6 +56,7 @@ T.mesh.detBk  = T.mesh.detBk/Length^3;
 T.mesh.trBNormal  = T.mesh.trBNormal/Length^2;
 %% Problem solving
 
+disp('System Assembly')
 S = femStressMatrix(T);
 [t, MR] = femRobin(T, robin, gR, 'alpha',alpha);
 
@@ -58,17 +71,17 @@ iD = unique(FixedTempSur(:));
 inD = (1:T.mesh.nNodes)'; inD = setdiff(inD,iD);
 u(iD) = TInt;
 
-
+disp('Solving System')
 b = b(inD); b = b-A(inD,iD)*u(iD);
 A = A(inD,inD);
 
 u(inD) = A\b;
-
+disp('done')
 %% Solution representation
 figure
 trisurf(T.mesh.trB, T.mesh.coord(:,1)*Length,T.mesh.coord(:,2)*Length,T.mesh.coord(:,3)*Length,...
             u-273, 'FaceColor','interp','EdgeColor','none');
-colormap turbo
+colormap jet
 colorbar
 caxis([293,300])
 axis equal
@@ -77,7 +90,7 @@ view(-23.5629,5.4)
 figure
 trisurf(T.mesh.trB, T.mesh.coord(:,1)*Length,T.mesh.coord(:,2)*Length,T.mesh.coord(:,3)*Length,...
             u-273, 'FaceColor','interp','EdgeColor','none');
-colormap turbo
+colormap jet
 colorbar
 caxis([293,300])
 axis equal

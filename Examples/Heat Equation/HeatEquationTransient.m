@@ -1,7 +1,20 @@
-T = FEM3Dclass('CylinderFins.msh');
+%%% If plots are not showing in octave:
+% graphics_toolkit ("gnuplot")
+
+
+% Make sure Heat Equation is the current folder.
+p = pwd ;
+cd ..
+cd ..
+% Add class folder to path
+addpath(pwd)
+% Return to Heat Equation Folder
+cd(p)
+%%
+T = FEM3Dclass('cylinderFins.msh');
 %% Properties
 
-% density 
+% density
 rho = 7200;
 % Thermal Conductivity
 k = 52;
@@ -19,7 +32,7 @@ alpha = @(x,y,z) h+x*0;
 
 % Initial condition
 T0 = 20; T0 = T0+273;
-% time step 
+% time step
 tau = 0.05;
 t0 = 0;
 tf = 120;
@@ -55,8 +68,8 @@ inD = (1:T.mesh.nNodes)'; inD = setdiff(inD,iD);
 Uend = zeros(T.mesh.nNodes, 1);
 
 % Initial conditions
-Uend = Uend+T0; 
-% Dirichlet conditions 
+Uend = Uend+T0;
+% Dirichlet conditions
 Uend(iD) = TInt;
 
 disp('System assembly')
@@ -64,7 +77,7 @@ M = femMassMatrix(T, @(x,y,z) 1+x*0); M = rho*Cp*M;
 S = femStressMatrix(T); S = k*S;
 [t,MR] = femRobin(T, robin, gR, 'alpha',alpha); t = t(inD);
 A  = M+0.5*tau*(S+MR); AnD =  A(inD,inD);
-A2 = M-0.5*tau*(S+MR); 
+A2 = M-0.5*tau*(S+MR);
 disp('done')
 
 % Can be used to decrease time computation of the system
@@ -83,7 +96,7 @@ for tn1 = t0+tau:tau:tf
         trisurf(T.mesh.trB, T.mesh.coord(:,1)*Length,...
               T.mesh.coord(:,2)*Length,T.mesh.coord(:,3)*Length,...
               Uend-273, 'FaceColor','interp','EdgeColor','none');
-        colormap turbo
+        colormap jet
         caxis([20 300])
         colorbar
         axis equal
@@ -93,7 +106,7 @@ for tn1 = t0+tau:tau:tf
         trisurf(T.mesh.trB, T.mesh.coord(:,1)*Length,...
               T.mesh.coord(:,2)*Length,T.mesh.coord(:,3)*Length,...
               Uend-273, 'FaceColor','interp','EdgeColor','none');
-        colormap turbo
+        colormap jet
         caxis([20 300])
         colorbar
         axis equal

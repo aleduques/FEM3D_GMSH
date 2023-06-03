@@ -1,7 +1,20 @@
+%%% If plots are not showing in octave:
+% graphics_toolkit ("gnuplot")
+
+
+% Make sure Elasticity is the current folder.
+p = pwd ;
+cd ..
+cd ..
+% Add class folder to path
+addpath(pwd)
+% Return to Elasticity Folder
+cd(p)
+%%
 %%% Displacement analysis of a connecting rod.
 
 % Mesh file
-% T = FEM3Dclass('ConnectingRod_order2.msh'); 
+% T = FEM3Dclass('ConnectingRod_order2.msh');
 T = FEM3Dclass('ConnectingRod.msh'); % Comment lines 136-139. Uncomment 140
 %% Geometry Visualization
 
@@ -139,8 +152,8 @@ uZ = u(2*nNodes+1:3*nNodes);
 
 %%% Valid for P2 elements
 % SurfaceSubTriangles = [1 4 6; 2 5 4; 3 6 5; 6 4 5];
-% 
-% 
+%
+%
 % trB = [T.mesh.trB(:,SurfaceSubTriangles(1,:));
 %                  T.mesh.trB(:,SurfaceSubTriangles(2,:));
 %                  T.mesh.trB(:,SurfaceSubTriangles(4,:))];
@@ -148,12 +161,12 @@ uZ = u(2*nNodes+1:3*nNodes);
 
 %%% Valid for P1 elements
 trB = T.mesh.trB;
-                 
+
 fig = figure;
 trisurf(trB, T.mesh.coord(:,1),T.mesh.coord(:,2),T.mesh.coord(:,3),...
             vecnorm([uX uY uZ],2,2), 'FaceColor','interp','EdgeColor','none');
 colorbar
-colormap turbo
+colormap jet
 xlabel('x')
 ylabel('y')
 zlabel('z')
@@ -191,7 +204,7 @@ fig = figure;
 trisurf(trB, T.mesh.coord(:,1),T.mesh.coord(:,2),T.mesh.coord(:,3),...
             uZ, 'FaceColor','interp','EdgeColor','none');
 colorbar
-colormap turbo
+colormap jet
 xlabel('x')
 ylabel('y')
 zlabel('z')
