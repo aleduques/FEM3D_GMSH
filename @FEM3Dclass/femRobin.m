@@ -18,7 +18,7 @@ function [t,MR] = femRobin(obj, robin, gN, varargin)
 %
 %
 % [t] = femRobin(obj, robin, gN). Constructs the traction term for the
-% neumann problem -div(K*grad) u = gn. 
+% neumann problem K*grad u.n = gn. 
 %
 % [t, MR] =  femRobin(obj, robin, gR,'alpha', alpha). Construct the
 %  traction term and the boundary mass matrix of the robin boundary
