@@ -1,3 +1,4 @@
+%% 
 %%% If plots are not showing in octave:
 % graphics_toolkit ("gnuplot")
 
@@ -9,6 +10,7 @@ cd ..
 addpath(pwd)
 % Return to Heat Equation Folder
 cd(p)
+
 %%
 T = FEM3Dclass('cylinderFins.msh');
 % T = FEM3Dclass('cylinderNoFins.msh');
@@ -45,10 +47,12 @@ figure
 hold on
 axis 'equal'
 trimesh(FixedTempSur, T.mesh.coord(:,1), T.mesh.coord(:,2), ...
-        T.mesh.coord(:,3),'FaceColor','red','EdgeColor','none')
+        T.mesh.coord(:,3),'FaceColor','red','EdgeColor','black')
 trimesh(ConvectSur, T.mesh.coord(:,1), T.mesh.coord(:,2), ...
-        T.mesh.coord(:,3),'FaceColor','blue','EdgeColor','none')
-view(3)
+        T.mesh.coord(:,3),'FaceColor','#ECECEC','EdgeColor','black')
+
+set(gca,'XColor', 'none','YColor','none', 'ZColor','none')
+view(120,10)
 %% Geometry Scaling
 Length = 1000; %mm->m
 T.mesh.coord = T.mesh.coord/Length;
@@ -78,21 +82,33 @@ A = A(inD,inD);
 u(inD) = A\b;
 disp('done')
 %% Solution representation
+close all
 figure
+colormap jet
 trisurf(T.mesh.trB, T.mesh.coord(:,1)*Length,T.mesh.coord(:,2)*Length,T.mesh.coord(:,3)*Length,...
             u-273, 'FaceColor','interp','EdgeColor','none');
-colormap jet
-colorbar
+set(gca,'XColor', 'none','YColor','none', 'ZColor','none')
+cb = colorbar;
+cb.FontName = "TimesNewRoman";
+cb.FontSize = 14;
+ylabel(cb, "T [ºC]")
 caxis([293,300])
 axis equal
-view(-23.5629,5.4)
+grid off
+view(0,90)
+exportgraphics(gcf, "steady_top.png", 'Resolution', 600);
 
 figure
+colormap jet
 trisurf(T.mesh.trB, T.mesh.coord(:,1)*Length,T.mesh.coord(:,2)*Length,T.mesh.coord(:,3)*Length,...
             u-273, 'FaceColor','interp','EdgeColor','none');
-colormap jet
-colorbar
+set(gca,'XColor', 'none','YColor','none', 'ZColor','none')
+cb = colorbar;
+cb.FontName = "TimesNewRoman";
+cb.FontSize = 14;
+ylabel(cb, "T [ºC]")
 caxis([293,300])
 axis equal
-view(0, 90)
-
+grid off
+view(120,10)
+exportgraphics(gcf, "steady_view.png", 'Resolution', 600);
