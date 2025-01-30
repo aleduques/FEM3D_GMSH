@@ -77,7 +77,7 @@ classdef FEM3Dclass < handle
         
         
         % Finite element evaluation
-        [val,Meval,barPt,indTtrh] = evalFEM3DUh(uh,obj,pt,varargin)
+        [val,Meval,barPt,indTtrh,indPtError] = evalFEM3DUh(uh,obj,pt,varargin)
 
 
     end
